@@ -23,6 +23,8 @@ namespace LoanApplication.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Register(UserViewModel users)
         {
@@ -46,8 +48,27 @@ namespace LoanApplication.Controllers
 
             return RedirectToAction("Index", "Loan", new { Id = tempId });
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel login)
+        {
+           var templogin = _context.Users.FirstOrDefault(x => x.Email == login.Email  && x.Password == login.password);
+
+            if (templogin != null)
+            {
+                return RedirectToAction("Index", "home");
+            }
+            return View();
+        }
     }
 }
+
 
 
 
